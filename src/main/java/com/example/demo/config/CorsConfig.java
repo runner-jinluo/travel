@@ -1,8 +1,11 @@
 package com.example.demo.config;
 
 import org.springframework.context.annotation.Configuration;
+<<<<<<< HEAD
 import org.springframework.http.MediaType;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
+=======
+>>>>>>> e1db032c5c83ff05d50c78d998c6513e143ed084
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -16,6 +19,7 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "PUT", "DELETE") // 允许的请求方法
                 .allowedHeaders("*"); // 允许的请求头
     }
+<<<<<<< HEAD
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
         configurer.favorPathExtension(false)
@@ -28,4 +32,6 @@ public class CorsConfig implements WebMvcConfigurer {
                 .mediaType("json", MediaType.APPLICATION_JSON)
                 .mediaType("form", MediaType.APPLICATION_FORM_URLENCODED);
     }
+=======
+>>>>>>> e1db032c5c83ff05d50c78d998c6513e143ed084
 }

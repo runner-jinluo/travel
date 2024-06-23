@@ -54,6 +54,7 @@ public class UserController {
         logger.info("Login response: {}", user != null ? "User found" : "User not found");
 
         return user;
+
     }
 
     public static class LoginRequest {
