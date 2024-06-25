@@ -1,5 +1,5 @@
 create table user(
-                     id varchar(20) COLLATE utf8mb4_general_ci NOT NULL  PRIMARY KEY,
+                     email varchar(20) COLLATE utf8mb4_general_ci NOT NULL  PRIMARY KEY,
                      password  varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
                      interest char(8) COLLATE utf8mb4_general_ci ,
                      name varchar(20) COLLATE utf8mb4_general_ci ,
@@ -10,8 +10,8 @@ create table user(
 );
 create table scenic_spot(
                             name varchar(50) COLLATE utf8mb4_general_ci NOT NULL  PRIMARY KEY,
-                            locate_x int NOT NULL ,
-                            locate_y int NOT NULL ,
+                            locate_x double NOT NULL ,
+                            locate_y double NOT NULL ,
                             during char(7) COLLATE utf8mb4_general_ci NOT NULL,
                             price char(1) COLLATE utf8mb4_general_ci NOT NULL,
                             classification char(8) COLLATE utf8mb4_general_ci NOT NULL,
