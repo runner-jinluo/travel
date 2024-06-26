@@ -22,7 +22,7 @@ create table Tourism_intention(
                                   usr_id varchar(20) COLLATE utf8mb4_general_ci   ,
                                   scenicspot_name varchar(50) COLLATE utf8mb4_general_ci  ,
                                   PRIMARY KEY(usr_id,scenicspot_name),
-                                  foreign key (usr_id) references user(id),
+                                  foreign key (usr_id) references user(email),
                                   foreign key (scenicspot_name) references scenic_spot(name)
 );
 create table route(
@@ -38,14 +38,14 @@ create table review(
                        review_text varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
                        PRIMARY KEY(route_id,usr_id,time),
                        foreign key (route_id) references route(id),
-                       foreign key (usr_id) references user(id)
+                       foreign key (usr_id) references user(email)
 );
 create table log(
                     usr_id varchar(20) COLLATE utf8mb4_general_ci  ,
                     time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     log_text varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
                     PRIMARY KEY(usr_id,time),
-                    foreign key (usr_id) references user(id)
+                    foreign key (usr_id) references user(email)
 );
 create table guide(
                       usr_id varchar(20) COLLATE utf8mb4_general_ci  ,
@@ -53,6 +53,6 @@ create table guide(
                       guide_text varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
                       route_id int,
                       PRIMARY KEY(usr_id,time),
-                      foreign key (usr_id) references user(id),
+                      foreign key (usr_id) references user(email),
                       foreign key (route_id) references route(id)
 );

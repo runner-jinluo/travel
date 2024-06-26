@@ -21,7 +21,10 @@ public class Guide {
   
   @Column(name = "route_id")
   private Integer routeId;
-  
+
+  public Guide() {
+    this.time = LocalDateTime.now();
+  }
   // Getters and setters
   public String getUsrId() {
     return usrId;
@@ -31,13 +34,13 @@ public class Guide {
     this.usrId = usrId;
   }
   
-  public LocalDateTime getTime() {
+  /*public LocalDateTime getTime() {
     return time;
   }
   
   public void setTime(LocalDateTime time) {
     this.time = time;
-  }
+  }*/
   
   public String getGuideText() {
     return guideText;
