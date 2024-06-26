@@ -32,7 +32,6 @@ public class UserServiceImpl implements UserService {
     public User updateUser(String email, User userDetails) {
         User user = userRepository.findById(email).orElse(null);
         if (user != null) {
-            user.setPassword(userDetails.getPassword());
             user.setInterest(userDetails.getInterest());
             user.setName(userDetails.getName());
             user.setAge(userDetails.getAge());
