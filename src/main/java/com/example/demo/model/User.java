@@ -12,7 +12,7 @@ public class User {
     @Column(name = "password", nullable = false, length = 20)
     private String password;
 
-    @Column(name = "interset", nullable = false, length = 8)
+    @Column(name = "interest", nullable = false, length = 8)
     private String interest;
 
     @Column(name = "name", nullable = false, length = 20)
@@ -82,5 +82,18 @@ public class User {
 
     public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", interest='" + interest + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }
