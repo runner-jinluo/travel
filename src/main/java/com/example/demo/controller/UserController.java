@@ -96,24 +96,28 @@ public class UserController {
             logger.error("Email is null in the request body");
             return ResponseEntity.badRequest().body("Email cannot be null");
         }
-        User user = new User(registerRequest.email);
-        //user.setEmail(registerRequest.email);
-        user.setEmail(registerRequest.email);
-        user.setAge(0);
-        user.setName("");
-        user.setPhoneNumber(0);
-        user.setSex("男");
+        if(userService.getUserById(registerRequest.email )==null) {
+            User user = new User(registerRequest.email);
+            //user.setEmail(registerRequest.email);
+            user.setEmail(registerRequest.email);
+            user.setAge(0);
+            user.setName("");
+            user.setPhoneNumber(0);
+            user.setSex("男");
 
-        user.setInterest("000000");
-        user.setPassword(registerRequest.password);
-        logger.info("Update request received with user details: {}", user.getInterest());
-        try {
-            User updatedUser = userService.createUser(user);
-            return ResponseEntity.ok(updatedUser);
-        } catch (Exception e) {
-            logger.error("Error updating user: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating user");
+            user.setInterest("000000");
+            user.setPassword(registerRequest.password);
+            logger.info("Update request received with user details: {}", user.getInterest());
+            try {
+                User updatedUser = userService.createUser(user);
+                return ResponseEntity.ok(updatedUser);
+            } catch (Exception e) {
+                logger.error("Error updating user: {}", e.getMessage());
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating user");
+            }
         }
+        else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("user existed");}
     }
 
     public static class updateUserRequest {
