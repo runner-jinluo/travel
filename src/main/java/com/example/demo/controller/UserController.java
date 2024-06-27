@@ -120,6 +120,24 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("user existed");}
     }
 
+    @PutMapping("/selectoption")
+    public ResponseEntity<?> userSelect(@RequestBody Selectoption selectoption) {
+        User user = userService.getUserById(selectoption.email);
+
+       User updatedUser = userService.createUser(user);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    public static class Selectoption {
+        public String email;
+        public int minage;
+        public int maxage;
+        public String  sex;
+        public String tickets;
+        public String days;
+        public String interest;
+
+    }
     public static class updateUserRequest {
        public String email;
        public int age;
