@@ -1,13 +1,16 @@
 package com.example.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import com.example.demo.dto.MatchingUserResponse;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @RestController
 @RequestMapping("/api/users")
@@ -17,7 +20,11 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    
+    private static final String[] INTERESTS = {
+        "徒步旅行", "文化探索", "美食之旅", "冒险运动", "海滩度假", "城市探险", "自驾游", "摄影"
+    };
+    
     @GetMapping
     public List<User> getAllUsers() {
         return userService.getAllUsers();
@@ -33,7 +40,7 @@ public class UserController {
         return userService.createUser(user);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public User updateUser(@PathVariable String id, @RequestBody User userDetails) {
         return userService.updateUser(id, userDetails);
     }
@@ -77,4 +84,27 @@ public class UserController {
             this.password = password;
         }
     }
+    
+    @GetMapping("/matching")
+    public List<MatchingUserResponse> getMatchingUsers(@RequestParam String email) {
+        List<User> matchingUsers = userService.findMatchingUsers(email);
+        System.out.println("Matching users response: " + matchingUsers.size());
+        return matchingUsers.stream()
+            .map(user -> {
+                StringBuilder commonInterests = new StringBuilder();
+                String interest = user.getInterest();
+                for (int i = 0; i < interest.length(); i++) {
+                    if (interest.charAt(i) == '1') {
+                        if (commonInterests.length() > 0) {
+                            commonInterests.append("、");
+                        }
+                        commonInterests.append(INTERESTS[i]);
+                    }
+                }
+                return new MatchingUserResponse(user.getName(), user.getAge(), user.getPhoneNumber(), commonInterests.toString());
+            })
+            .collect(Collectors.toList());
+    }
+    
+    
 }

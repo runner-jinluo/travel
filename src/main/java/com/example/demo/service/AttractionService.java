@@ -17,12 +17,11 @@ public class AttractionService {
         return attractionRepository.findByUserId(userId);
     }
 
-    public void deleteAttractions(List<Long> ids) {
-        attractionRepository.deleteAllById(ids);
-    }
-
     public List<Attraction> saveAttractions(List<Attraction> attractions) {
         return attractionRepository.saveAll(attractions);
     }
 
+    public void deleteById(Long id) {
+        attractionRepository.deleteById(id);
+    }
 }
