@@ -5,6 +5,14 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "user")
 public class User {
+    public User() {
+
+    }
+
+    public User (String U_id) {
+        this.email = U_id;
+    }
+
     @Id
     @Column(name = "email", nullable = false, unique = true, length = 20)
     private String email;
@@ -26,6 +34,9 @@ public class User {
 
     @Column(name = "phone_number", nullable = false, precision = 11)
     private long phoneNumber;
+
+    @Column(name = "interset")
+    public String interset = "";
 
     // Getters and Setters
     public String getEmail() {

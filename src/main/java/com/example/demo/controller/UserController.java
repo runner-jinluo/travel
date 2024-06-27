@@ -87,6 +87,35 @@ public class UserController {
         return user;
 
     }
+
+    @PostMapping("/reg")
+    public ResponseEntity<?> registerUser(@RequestBody registerRequest registerRequest) {
+        logger.info("Update request received with user details: {}", registerRequest.email);
+
+        if (registerRequest.email == null) {
+            logger.error("Email is null in the request body");
+            return ResponseEntity.badRequest().body("Email cannot be null");
+        }
+        User user = new User(registerRequest.email);
+        //user.setEmail(registerRequest.email);
+        user.setEmail(registerRequest.email);
+        user.setAge(0);
+        user.setName("");
+        user.setPhoneNumber(0);
+        user.setSex("男");
+
+        user.setInterest("000000");
+        user.setPassword(registerRequest.password);
+        logger.info("Update request received with user details: {}", user.getInterest());
+        try {
+            User updatedUser = userService.createUser(user);
+            return ResponseEntity.ok(updatedUser);
+        } catch (Exception e) {
+            logger.error("Error updating user: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating user");
+        }
+    }
+
     public static class updateUserRequest {
        public String email;
        public int age;
@@ -98,6 +127,36 @@ public class UserController {
     public static class LoginRequest {
         private String email;
         private String password;
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+    }
+
+    public static class registerRequest {
+        private String email;
+        private String password;
+        private String password2;
+
+        public String getPassword2() {
+            return password2;
+        }
+
+        public void setPassword2(String password2) {
+            this.password2 = password2;
+        }
 
         public String getEmail() {
             return email;
