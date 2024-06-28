@@ -4,5 +4,6 @@ import com.example.demo.model.Route;
 import java.util.List;
 
 public interface RouteService {
-  List<Route> getAllRoutes();
+    List<Route> getAllRoutes();
+    Route saveRoute(Route route);
 }

@@ -1,4 +1,4 @@
-package com.example.demo.service.impl;
+package com.example.demo.service;
 
 import com.example.demo.model.Route;
 import com.example.demo.repository.RouteRepository;
@@ -17,5 +17,10 @@ public class RouteServiceImpl implements RouteService {
   @Override
   public List<Route> getAllRoutes() {
     return routeRepository.findAll();
+  }
+
+  @Override
+  public Route saveRoute(Route route){
+    return routeRepository.save(route);
   }
 }

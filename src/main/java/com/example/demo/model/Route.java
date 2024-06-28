@@ -12,7 +12,8 @@ public class Route {
   
   @Column(name = "route", unique = true)
   private String route;
-  
+
+
   // Getters and setters
   public Integer getId() {
     return id;

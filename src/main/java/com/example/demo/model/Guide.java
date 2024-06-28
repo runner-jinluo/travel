@@ -34,10 +34,10 @@ public class Guide {
     this.usrId = usrId;
   }
   
-  /*public LocalDateTime getTime() {
+  public LocalDateTime getTime() {
     return time;
   }
-  
+  /*
   public void setTime(LocalDateTime time) {
     this.time = time;
   }*/
