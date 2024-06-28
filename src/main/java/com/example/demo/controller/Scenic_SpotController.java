@@ -24,6 +24,8 @@ public class Scenic_SpotController {
 
     @Autowired
     private Scenic_SpotService scenic_SpotService;
+    @Autowired
+    private UserService userService;
 
 
     @Autowired
@@ -76,8 +78,30 @@ public class Scenic_SpotController {
 
         }
        /* attractionService.saveAttractions(attractionList);*/
-        return ResponseEntity.ok("选择完成");
+        return ResponseEntity.ok(selectoption);
     }
+
+    @PostMapping("/{id}")
+    public User deleteattraction(@PathVariable String id) {
+        attractionService.deleteall();
+        return userService.getUserById(id);
+    }
+
+    public static class DeleteRequest {
+        private String email;
+
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+
+    }
+
 
     public static class Selectoption {
         public String email;
