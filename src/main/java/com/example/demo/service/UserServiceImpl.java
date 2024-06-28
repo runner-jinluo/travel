@@ -1,11 +1,10 @@
 package com.example.demo.service;
 
+import com.example.demo.controller.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
-import com.example.demo.service.UserService;
-
 
 import java.util.List;
 import java.util.Optional;
@@ -63,25 +62,30 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-    public List<User> findMatchingUsers(String email) {
-        User currentUser = userRepository.findById(email).orElse(null);
-        if (currentUser == null) {
-            System.out.println("Current user not found");
-            return null;
-        }
+    public List<User> findMatchingUsers(UserController.Selectoption selectoption) {
         
-        Integer minAge = currentUser.getAge() - 3;
-        Integer maxAge = currentUser.getAge() + 3;
-        String sex = currentUser.getSex();
-        String currentUserInterest = currentUser.getInterest();
+        Integer minAge = selectoption.minage;
+        Integer maxAge = selectoption.maxage;
+        String currentUserInterest = selectoption.interest;
         
         System.out.println("Current user interest: " + currentUserInterest);
+    
+    
+        List<User> candidates;
+        if (selectoption.sex == "01"){
+            String sex = "女";
+            candidates = userRepository.findByAgeBetweenAndSex(minAge, maxAge, sex);
+        } else if (selectoption.sex == "10") {
+            String sex = "男";
+            candidates = userRepository.findByAgeBetweenAndSex(minAge, maxAge, sex);
+        } else {
+            candidates = userRepository.findByAgeBetween(minAge, maxAge);
+        }
         
-        List<User> candidates = userRepository.findByAgeBetweenAndSex(minAge, maxAge, sex);
         System.out.println("Candidates found: " + candidates.size());
         
         List<User> matchingUsers = candidates.stream()
-            .filter(user -> !user.getEmail().equals(email))
+            .filter(user -> !user.getEmail().equals(selectoption.email))
             .filter(user -> {
                 String interest = user.getInterest();
                 int commonInterests = 0;
@@ -101,5 +105,7 @@ public class UserServiceImpl implements UserService {
         System.out.println("Matching users found: " + matchingUsers.size());
         return matchingUsers;
     }
+    
+    
     
 }

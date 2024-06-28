@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.AttractionRequest;
 import com.example.demo.model.Attraction;
 import com.example.demo.service.AttractionService;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import org.slf4j.LoggerFactory;
 
 import static com.mysql.cj.conf.PropertyKey.logger;
@@ -20,6 +21,7 @@ import static com.mysql.cj.conf.PropertyKey.logger;
 @RestController
 @RequestMapping("/api/attractions")
 public class AttractionController {
+    private static final Logger logger = LoggerFactory.getLogger(AttractionController.class);
     Map<String, String> response = new HashMap<>();
 
     @Autowired
@@ -39,6 +41,7 @@ public class AttractionController {
     @PostMapping("/get_data")
     public List<Attraction> getAttractions(@RequestBody Map<String, String> payload) {
         String userid = payload.get("userid");
+        logger.info("attraction controller get data {}",userid);
         return attractionService.getAttractions(userid);
     }
     @PostMapping("/del")

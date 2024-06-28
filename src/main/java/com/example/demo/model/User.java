@@ -5,6 +5,14 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "user")
 public class User {
+    public User() {
+
+    }
+
+    public User (String U_id) {
+        this.email = U_id;
+    }
+
     @Id
     @Column(name = "email", nullable = false, unique = true, length = 20)
     private String email;
@@ -19,68 +27,84 @@ public class User {
     private String name;
 
     @Column(name = "age", nullable = false, precision = 2)
-    private Integer age;
+    private int age;
 
     @Column(name = "sex", nullable = false, length = 2)
     private String sex;
 
     @Column(name = "phone_number", nullable = false, precision = 11)
-    private Long phoneNumber;
+    private long phoneNumber;
+
+    @Column(name = "interset")
+    public String interset = "";
 
     // Getters and Setters
     public String getEmail() {
         return email;
     }
-    
+
     public void setEmail(String email) {
-        this.email = email;
+        this.email = this.email;
     }
-    
+
     public String getPassword() {
         return password;
     }
-    
+
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     public String getInterest() {
         return interest;
     }
-    
+
     public void setInterest(String interest) {
         this.interest = interest;
     }
-    
+
     public String getName() {
         return name;
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
-    
-    public Integer getAge() {
+
+    public int getAge() {
         return age;
     }
-    
-    public void setAge(Integer age) {
+
+    public void setAge(int age) {
         this.age = age;
     }
-    
+
     public String getSex() {
         return sex;
     }
-    
+
     public void setSex(String sex) {
         this.sex = sex;
     }
-    
-    public Long getPhoneNumber() {
+
+    public long getPhoneNumber() {
         return phoneNumber;
     }
-    
-    public void setPhoneNumber(Long phoneNumber) {
+
+    public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", interest='" + interest + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }
