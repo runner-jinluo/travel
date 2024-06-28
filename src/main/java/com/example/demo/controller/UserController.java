@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.MatchingUserResponse;
 import com.example.demo.model.Scenic_Spot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/users")
@@ -183,5 +185,41 @@ public class UserController {
         public void setPassword(String password) {
             this.password = password;
         }
+    }
+
+
+    private static final String[] INTERESTS = {
+            "徒步旅行", "文化探索", "美食之旅", "冒险运动", "海滩度假", "城市探险", "自驾游", "摄影"
+    };
+    @PutMapping("/selectoption")
+    public List<MatchingUserResponse> getMatchingUsers(@RequestBody Selectoption selectoption) {
+        List<User> matchingUsers = userService.findMatchingUsers(selectoption);
+        System.out.println("Matching users response: " + matchingUsers.size());
+        return matchingUsers.stream()
+                .map(user -> {
+                    StringBuilder commonInterests = new StringBuilder();
+                    String interest = user.getInterest();
+                    for (int i = 0; i < interest.length(); i++) {
+                        if (interest.charAt(i) == '1') {
+                            if (commonInterests.length() > 0) {
+                                commonInterests.append("、");
+                            }
+                            commonInterests.append(INTERESTS[i]);
+                        }
+                    }
+                    return new MatchingUserResponse(user.getName(), user.getAge(), user.getPhoneNumber(), commonInterests.toString());
+                })
+                .collect(Collectors.toList());
+    }
+
+    public static class Selectoption {
+        public String email;
+        public int minage;
+        public int maxage;
+        public String sex;
+        public String tickets;
+        public String days;
+        public String interest;
+
     }
 }
