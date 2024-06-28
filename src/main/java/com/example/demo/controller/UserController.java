@@ -1,11 +1,13 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Scenic_Spot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
+import com.example.demo.service.Scenic_SpotService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -120,24 +122,9 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("user existed");}
     }
 
-    @PutMapping("/selectoption")
-    public ResponseEntity<?> userSelect(@RequestBody Selectoption selectoption) {
-        User user = userService.getUserById(selectoption.email);
 
-       User updatedUser = userService.createUser(user);
-        return ResponseEntity.ok(updatedUser);
-    }
 
-    public static class Selectoption {
-        public String email;
-        public int minage;
-        public int maxage;
-        public String  sex;
-        public String tickets;
-        public String days;
-        public String interest;
 
-    }
     public static class updateUserRequest {
        public String email;
        public int age;
@@ -145,6 +132,7 @@ public class UserController {
        public long phoneNumber;
        public String sex;
        public String interest;
+
     }
     public static class LoginRequest {
         private String email;

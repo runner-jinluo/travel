@@ -8,7 +8,7 @@ public class Attraction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private String adress;
+    private String address;
     private String userId;
 
     @Embedded
@@ -32,12 +32,12 @@ public class Attraction {
         this.title = title;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getUserId() {

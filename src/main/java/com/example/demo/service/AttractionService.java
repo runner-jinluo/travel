@@ -16,9 +16,14 @@ public class AttractionService {
     public List<Attraction> getAttractions(String userId) {
         return attractionRepository.findByUserId(userId);
     }
-
+    public Attraction saveoneAttraction(Attraction attractions) {
+        return attractionRepository.save(attractions);
+    }
     public List<Attraction> saveAttractions(List<Attraction> attractions) {
         return attractionRepository.saveAll(attractions);
+    }
+    public void deleteall() {
+        attractionRepository.deleteAll();
     }
 
     public void deleteById(Long id) {
